@@ -1,45 +1,53 @@
- let countCubics = 2 * 2;
- let arrayCubics = [];
+let countKubiks = 2 * 2;
+let arrayKubiks = [];
 
- for (let i = 0; i < countCubics / 2; i++) {
-     let cubic = {
-         red: Math.round(Math.random() * 255),
-         green: Math.round(Math.random() * 255),
-         blue: Math.round(Math.random() * 255),
-         view: false
-     }
-     arrayCubics.push(cubic);
- }
+for (let i = 0; i < countKubiks / 2; i++) {
+    let kubik = {
+        red: Math.round(Math.random() * 255),
+        green: Math.round(Math.random() * 255),
+        blue: Math.round(Math.random() * 255),
+        view: false
+    }
 
-arrayCubics = [...arrayCubics, ...arrayCubics];
+    arrayKubiks.push(kubik);    
+}
 
-console.log(arrayCubics);
-function renderCubics(arrayCubics) {
-    arrayCubics.map((cubic, index) => {
-        if (!document.getElementById('cubic_' + index)) {
-        let div = document.createElement('div');
-        div.id = 'cubic_' + index;
-        div.className = 'cubic';
-        div.onclick = event => {cubicClick(event);}
-        document.getElementById('cubics').append(div);
+arrayKubiks = [...arrayKubiks, ...arrayKubiks];
+
+console.log(arrayKubiks);
+
+function renderKubiks(arrayKubiks) {
+    arrayKubiks.map((kubik, index) => {
+        if (!document.getElementById('kubik_' + index)) {
+            let div = document.createElement('div');
+            div.id = 'kubik_' + index;
+            div.className = 'kubik';
+            div.onclick = event => {kubikClick(event);}
+            document.getElementById('kubiks').append(div);
         }
-        renderCubics(cubic, index);
+
+        renderKubik(kubik, index);
     });
 }
 
-function renderCubic(cubic, index) {
-    if (cubic.view) {
-        document.getElementById('cubic_' + cubic.id)
-        style.backgroundColor = 'rgb(' + cubic.red + ',' + cubic.green + ',' + cubic.blue + ')';
+function renderKubik(kubik, index) {
+    if (kubik.view) {
+        document.getElementById('kubik_' + index).style.backgroundColor = 
+        'rgb(' + kubik.red + ',' + kubik.green + ',' + kubik.blue + ')';
     }
 }
 
-function cubicClick(e) {
-    let cubicId = Number(event.target.id.slice(6));
-    arrayCubics.map((cubic, index) => {
-        if (index === cubicId) {
-           cubic.view = true;
+renderKubiks(arrayKubiks);
+
+function kubikClick(event) {
+
+    let kubikId = Number(event.target.id.slice(6));
+    
+    arrayKubiks.map((kubik, index) => {
+        if (index === kubikId) {
+            kubik.view = true;
         }
     });
-    renderCubics(arrayCubics)
+
+    renderKubiks(arrayKubiks);
 }
